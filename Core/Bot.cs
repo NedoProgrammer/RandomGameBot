@@ -1,5 +1,7 @@
 using System.Reflection;
 using DSharpPlus;
+using DSharpPlus.Interactivity;
+using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.SlashCommands;
 using DSharpPlus.SlashCommands.EventArgs;
 using Microsoft.Extensions.Logging;
@@ -56,7 +58,15 @@ public class Bot
 		slashCommands.RegisterCommands(Assembly.GetExecutingAssembly(), Config.Singleton.RefreshGuildId);
 		slashCommands.SlashCommandInvoked += ConsoleInterface.OnSlashCommandInvoked;
 		slashCommands.SlashCommandExecuted += ConsoleInterface.OnSlashCommandExecuted;
+		slashCommands.SlashCommandErrored += (sender, args) =>
+		{
+			Log.Error("{Exception}", args.Exception.ToString());
+			return Task.CompletedTask;
+		};
 		Log.Debug("Slash commands initialized");
+
+		_client.UseInteractivity();
+		Log.Debug("Interactivity initialized");
 
 		_client.Ready += (_, _) =>
 		{
@@ -69,5 +79,6 @@ public class Bot
 		await Task.Delay(-1);
 	}
 
-	
+	public InteractivityExtension GetInteractivity() => _client.GetInteractivity();
+
 }

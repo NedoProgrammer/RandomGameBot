@@ -30,6 +30,23 @@ void DoPrerunChecks()
 		Config.Create();
 		Environment.Exit(0);
 	}
+
+	if (!Directory.Exists("Scripts"))
+	{
+		AnsiConsole.MarkupLine("[bold red]Scripts/ directory was not found![/]");
+		Environment.Exit(1);
+	}
+	else
+	{
+		if (!File.Exists("Scripts/GoogleForMe.py"))
+		{
+			AnsiConsole.MarkupLine("[bold red]Scripts/GoogleForMe.py was not found![/]");
+			Environment.Exit(1);
+		}
+	}
+
+	if (!Directory.Exists("Games"))
+		Directory.CreateDirectory("Games");
 }
 
 void Startup()

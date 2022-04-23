@@ -23,4 +23,8 @@
       <PackageReference Include="Spectre.Console.Analyzer" Version="0.44.1-preview.0.4" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Features\ObjectionLol" />
+    </ItemGroup>
+
 </Project>
