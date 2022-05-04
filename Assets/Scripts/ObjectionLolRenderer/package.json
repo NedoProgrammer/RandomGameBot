@@ -1,0 +1,17 @@
+{
+  "name": "objectionlolrenderer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "alert": "^5.0.10",
+    "puppeteer": "^13.7.0",
+    "puppeteer-stream": "^2.0.9",
+    "puppeteer-video-recorder": "^1.0.5"
+  }
+}

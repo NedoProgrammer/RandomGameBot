@@ -3,18 +3,32 @@ using Serilog.Events;
 
 namespace RandomGameBot.Extensions;
 
-public class RandomGameBotSink: ILogEventSink
+/// <summary>
+/// Custom Console Serilog sink with an event
+/// attached to when a message is emitted.
+/// </summary>
+public class RandomGameBotSink : ILogEventSink
 {
+	/// <summary>
+	/// Format provider.
+	/// </summary>
 	private readonly IFormatProvider _formatProvider;
 
+	/// <summary>
+	/// Constructor. Automatically empties the "latest_log.txt" file.
+	/// </summary>
+	/// <param name="formatProvider">Optional format provider.</param>
 	public RandomGameBotSink(IFormatProvider formatProvider)
 	{
 		_formatProvider = formatProvider;
 		File.WriteAllText("latest_log.txt", "");
 	}
 
-	public event Action? Emitted;
-	
+	/// <summary>
+	/// Derived from <see cref="ILogEventSink"/>.
+	/// Writes to the file & console, also invokes the event. (if set)
+	/// </summary>
+	/// <param name="logEvent"></param>
 	public void Emit(LogEvent logEvent)
 	{
 		var message = logEvent.RenderMessage(_formatProvider);
@@ -25,4 +39,9 @@ public class RandomGameBotSink: ILogEventSink
 		#pragma warning restore Spectre1000
 		Emitted?.Invoke();
 	}
+
+	/// <summary>
+	/// Event which is invoked when a message is emitted.
+	/// </summary>
+	public event Action? Emitted;
 }
